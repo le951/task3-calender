@@ -73,7 +73,7 @@ public class Controller {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping()
     public ResponseEntity<DeleteScheduleDTO> deleteSchedule(
             @RequestBody @Valid DeleteScheduleDTO dto
     ){
