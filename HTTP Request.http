@@ -1,47 +1,43 @@
 ###
-GET http://localhost:8080/1
-Accept: */*
+GET http://localhost:8080/test
 
 
-### Create Test
-POST http://localhost:8080
+### Create Account
+POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "writer": "Mr.N",
-  "password": "p1",
+  "account": "testAccount1",
+  "password": "TestPassword1"
+}
+
+### Unknown Path
+POST http://localhost:8080/Login
+
+
+### Login
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "account": "testAccount1",
+  "password": "TestPassword1"
+}
+
+### Create Schedule
+POST http://localhost:8080/
+Cookie: JSESSIONID=C2D734CF4F0BA8116BBE4AB0C5D1785E
+Content-Type: application/json
+
+{
   "title": "title!",
-  "memo": "",
-  "startTime": 1742829690000,
-  "endTime": 1742829690000
+  "detail": "detail text",
+  "startAt": "2025-04-05T00:00:00",
+  "endAt": "2025-04-07T00:00:00"
 
 }
 
 
-### Get List
-GET http://localhost:8080/list
 
-### Get List Options 1
-GET http://localhost:8080/list?writer=Lee
 
-### Patch Schedule
-PATCH http://localhost:8080/
-Content-Type: application/json
-
-{
-  "no": 99,
-  "password": "p1q",
-  "writer": "Mrs. aJ",
-  "title": "Schedule Name",
-  "memo": "This! Is! Test!"
-}
-
-### Delete Schedule
-DELETE http://localhost:8080/
-Content-Type: application/json
-
-{
-  "no": 11,
-  "password": "p1"
-}
 

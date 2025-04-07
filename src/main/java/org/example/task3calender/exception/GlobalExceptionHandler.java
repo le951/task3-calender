@@ -16,15 +16,21 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(LoginRequiredException.class)
+    public ResponseEntity<String> handleLoginRequired(LoginRequiredException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(e.getMessage());
+    }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<String> handlerMissingServletRequestParameter(MissingServletRequestParameterException e){
+    public ResponseEntity<String> handleMissingServletRequestParameter(MissingServletRequestParameterException e){
         log.warn(e.toString());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Request Parameter가 잘못되었습니다.");
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<String> handlerNoResourceFound(NoResourceFoundException e){
+    public ResponseEntity<String> handleNoResourceFound(NoResourceFoundException e){
         log.warn(e.toString());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("잘못된 경로의 요청입니다.");
@@ -54,14 +60,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handlerConstraintViolation(ConstraintViolationException e){
+    public ResponseEntity<String> handleConstraintViolation(ConstraintViolationException e){
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("잘못된 데이터 입력입니다.");
     }
 
     @ExceptionHandler(PersistenceException.class)
-    public ResponseEntity<String> handlerPersistence(PersistenceException e){
+    public ResponseEntity<String> handlePersistence(PersistenceException e){
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("잘못된 데이터 입력입니다.");
@@ -72,7 +78,7 @@ public class GlobalExceptionHandler {
 
     // 알 수 없는 예외 발생 시 Request 중단
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handlerException(Exception e){
+    public ResponseEntity<String> handleException(Exception e){
 //        Arrays.stream(e.getStackTrace()).iterator().forEachRemaining(s -> {
 //            String st = s.getFileName() + " " +
 //                    s.getClassName() + " " +
